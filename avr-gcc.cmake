@@ -220,22 +220,45 @@ add_custom_target(
 )
 
 # get fuses
-add_custom_target(
+IF(AVR_E_FUSE)
+    add_custom_target(
+            get_fuses
+            ${AVR_UPLOADTOOL} -p ${AVR_MCU} -c ${AVR_PROGRAMMER} -P ${AVR_UPLOADTOOL_PORT} -n
+            -U lfuse:r:-:b
+            -U hfuse:r:-:b
+            -U efuse:r:-:b
+            COMMENT "Get fuses from ${AVR_MCU}"
+    )
+    ELSE(AVR_E_FUSE)
+    add_custom_target(
         get_fuses
         ${AVR_UPLOADTOOL} -p ${AVR_MCU} -c ${AVR_PROGRAMMER} -P ${AVR_UPLOADTOOL_PORT} -n
         -U lfuse:r:-:b
         -U hfuse:r:-:b
         COMMENT "Get fuses from ${AVR_MCU}"
-)
+    )
+ENDIF(AVR_E_FUSE)
 
 # set fuses
-add_custom_target(
+IF(AVR_E_FUSE)
+    add_custom_target(
+            set_fuses
+            ${AVR_UPLOADTOOL} -p ${AVR_MCU} -c ${AVR_PROGRAMMER} -P ${AVR_UPLOADTOOL_PORT}
+            -U lfuse:w:${AVR_L_FUSE}:m
+            -U hfuse:w:${AVR_H_FUSE}:m
+            -U efuse:w:${AVR_E_FUSE}:m
+            COMMENT "Setup: High Fuse: ${AVR_H_FUSE} Low Fuse: ${AVR_L_FUSE}"
+    )
+ELSE(AVR_E_FUSE)
+    add_custom_target(
         set_fuses
         ${AVR_UPLOADTOOL} -p ${AVR_MCU} -c ${AVR_PROGRAMMER} -P ${AVR_UPLOADTOOL_PORT}
         -U lfuse:w:${AVR_L_FUSE}:m
         -U hfuse:w:${AVR_H_FUSE}:m
         COMMENT "Setup: High Fuse: ${AVR_H_FUSE} Low Fuse: ${AVR_L_FUSE}"
 )
+ENDIF(AVR_E_FUSE)
+
 
 # get oscillator calibration
 add_custom_target(
