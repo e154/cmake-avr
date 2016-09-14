@@ -117,23 +117,6 @@ if(CMAKE_BUILD_TYPE MATCHES Debug)
 endif(CMAKE_BUILD_TYPE MATCHES Debug)
 
 ##########################################################################
-# compiler options for all build types
-##########################################################################
-add_definitions("-DF_CPU=${MCU_SPEED}")
-#add_definitions("-fpack-struct")
-#add_definitions("-fshort-enums")
-add_definitions("-Wall")
-#add_definitions("-Werror")
-#add_definitions("-pedantic")
-#add_definitions("-pedantic-errors")
-#add_definitions("-funsigned-char")
-#add_definitions("-funsigned-bitfields")
-#add_definitions("-ffunction-sections")
-#add_definitions("-c")
-add_definitions("-std=gnu99")
-add_definitions("-mmcu=${AVR_MCU}")
-
-##########################################################################
 # avr-gcc: error: unrecognized command line option ‘-rdynamic’
 set(CMAKE_SHARED_LIBRARY_LINK_C_FLAGS "")
 set(CMAKE_SHARED_LIBRARY_LINK_CXX_FLAGS "")
