@@ -7,11 +7,11 @@
 
 int main(void)
 {
-    DDRD |= (1 << PD0);
+    DDRD |= (1<<PD0);
 
 	for(;;)
 	{
-		PORTD ^= ~(1 << PD0);
+		PORTD ^= (1<<PD0);
 		_delay_ms(250);
 	}
 }
